@@ -1,0 +1,50 @@
+{
+  "name": "mole-riddle",
+  "productName": "もぐらたたき",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "オフラインで遊べる謎表示型モグラ叩き",
+  "main": "main/main.js",
+  "scripts": {
+    "start": "electron .",
+    "preview": "electron . --preview",
+    "build:app": "electron-builder --mac dir --universal",
+    "build:mac": "electron-builder --mac dmg --universal",
+    "build:win": "electron-builder --win nsis --x64"
+  },
+  "devDependencies": {
+    "electron": "45.3.3",
+    "electron-builder": "26.18.0"
+  },
+  "build": {
+    "appId": "local.mogura.riddles",
+    "productName": "もぐらたたき",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "main/**/*",
+      "renderer/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      { "from": "riddles", "to": "riddles" },
+      { "from": "settings.json", "to": "settings.json" }
+    ],
+    "mac": {
+      "target": "dmg",
+      "icon": "build/icon.icns",
+      "category": "public.app-category.games",
+      "identity": null
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "build/icon.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "createDesktopShortcut": true
+    }
+  }
+}
