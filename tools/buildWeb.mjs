@@ -24,8 +24,10 @@ for (const file of [...filesIn(path.join(root, 'renderer')), ...filesIn(path.joi
 const version = hash.digest('hex').slice(0, 12);
 const assets = path.join(output, 'assets', version);
 
-rmSync(output, { recursive: true, force: true });
 mkdirSync(output, { recursive: true });
+for (const name of ['css', 'js', 'riddles']) {
+  rmSync(path.join(output, name), { recursive: true, force: true });
+}
 cpSync(path.join(root, 'renderer'), output, { recursive: true, force: true });
 mkdirSync(assets, { recursive: true });
 cpSync(path.join(root, 'renderer', 'css'), path.join(assets, 'css'), { recursive: true });

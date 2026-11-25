@@ -25,6 +25,7 @@ async function start() {
   context.machine.register('OPTIONS', new OptionsScene(context));
   if (new URLSearchParams(location.search).has('preview')) setupPreview(context);
   window.addEventListener('keydown', event => {
+    if (context.machine.name === 'RESULT' && !context.machine.current.canAcceptInput()) return;
     if (event.ctrlKey && event.shiftKey && event.code === 'KeyQ') {
       event.preventDefault(); window.api.quitApp();
     }
