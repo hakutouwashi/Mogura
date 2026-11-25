@@ -9,6 +9,7 @@
   "scripts": {
     "start": "electron .",
     "preview": "electron . --preview",
+    "build:web": "node tools/buildWeb.mjs",
     "build:app": "electron-builder --mac dir --universal",
     "build:mac": "electron-builder --mac dmg --universal",
     "build:win": "electron-builder --win nsis --x64"

@@ -13,6 +13,10 @@
 
 Mac版は `npm run build:mac`、Windows版は `npm run build:win` で作成します。出力先は `release` です。Mac版は署名と公証を行わない設定です。
 
+## ブラウザ版
+
+`npm run build:web` で、GitHub Pages に公開するファイルを `docs/` に生成します。ブラウザ版の設定は、そのブラウザのローカルストレージに保存されます。`renderer/` や `riddles/` を編集したら、公開前にこのコマンドを再実行してください。
+
 ## 復元元と限界
 
 - `main/` と `renderer/`: 2026年11月19日の完成アプリに入っていたコード

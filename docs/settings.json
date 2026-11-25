@@ -1,0 +1,14 @@
+{
+  "gameDurationSec": 60,
+  "scoreHitMole": 100,
+  "scoreHitOther": 50,
+  "riddleLifetimeSec": 5,
+  "maxActive": 3,
+  "spawnIntervalStartSec": 2,
+  "spawnIntervalMinSec": 0.7,
+  "moleRatioPercent": 60,
+  "allowNegativeScore": false,
+  "keyLayout": "keyboard",
+  "resultAutoReturnSec": 0,
+  "resultCountUpSec": 1.5
+}

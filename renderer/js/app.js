@@ -15,6 +15,7 @@ async function preloadImages(riddles) {
 }
 
 async function start() {
+  if (!window.api) await import('./browserApi.js');
   const [riddles, settings] = await Promise.all([window.api.getRiddles(), window.api.getSettings()]);
   await preloadImages(riddles);
   const context = { riddles, settings, bus: new EventBus(), machine: new StateMachine() };
