@@ -15,7 +15,7 @@ export class TitleScene {
     document.getElementById('start-button').disabled = missing;
     this.onKey = event => {
       if (event.repeat) return;
-      if (event.ctrlKey && event.shiftKey && event.code === 'KeyO') {
+      if (event.code === 'KeyZ' && !event.ctrlKey && !event.shiftKey && !event.altKey && !event.metaKey) {
         event.preventDefault(); this.context.machine.change('OPTIONS');
       } else if (!missing && !event.ctrlKey && !event.altKey && !event.metaKey &&
         (['Space', 'Enter'].includes(event.code) || /^(Digit|Numpad)[1-9]$/.test(event.code))) {
