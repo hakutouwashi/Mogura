@@ -8,15 +8,12 @@ const fields = [
   ['maxActive', '同時表示数', '個', 1, 9, 1],
   ['spawnIntervalStartSec', '出現間隔・開始', '秒', 0.1, 10, 0.1],
   ['spawnIntervalMinSec', '出現間隔・最短', '秒', 0.1, 10, 0.1],
-  ['moleRatioPercent', 'モグラの出現率', '%', 0, 100, 1],
-  ['resultAutoReturnSec', '結果の自動復帰', '秒（0で無効）', 0, 60, 0.1],
-  ['resultCountUpSec', 'スコア演出時間', '秒', 0, 5, 0.1]
+  ['moleRatioPercent', '正解の出現率', '%', 0, 100, 1]
 ];
 const fieldByKey = new Map(fields.map(field => [field[0], field]));
 const groups = [
   ['ゲームのルール', ['gameDurationSec', 'scoreHitMole', 'scoreHitOther', 'allowNegativeScore']],
-  ['なぞの出現', ['riddleLifetimeSec', 'maxActive', 'spawnIntervalStartSec', 'spawnIntervalMinSec', 'moleRatioPercent']],
-  ['結果と操作', ['resultAutoReturnSec', 'resultCountUpSec', 'keyLayout']]
+  ['なぞの出現', ['riddleLifetimeSec', 'maxActive', 'spawnIntervalStartSec', 'spawnIntervalMinSec', 'moleRatioPercent']]
 ];
 
 export class OptionsScene {
@@ -36,8 +33,6 @@ export class OptionsScene {
         row.className = 'setting-row';
         if (key === 'allowNegativeScore') {
           row.innerHTML = '<span>マイナス点を許可</span><select name="allowNegativeScore"><option value="false">許可しない</option><option value="true">許可する</option></select>';
-        } else if (key === 'keyLayout') {
-          row.innerHTML = '<span>数字キーの配置</span><select name="keyLayout"><option value="keyboard">キーボード順（1–9）</option><option value="phone">テンキー順（7–3）</option></select>';
         } else {
           const [, label, unit, min, max, step] = fieldByKey.get(key);
           row.innerHTML = `<span>${label}<small>${unit}</small></span><input name="${key}" type="number" min="${min}" max="${max}" step="${step}" required>`;
