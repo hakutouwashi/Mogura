@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { SpawnController } from '../renderer/js/game/SpawnController.js';
 
-test('spawns again when the board has no visible riddles', () => {
+test('waits for the interval and cell cooldown when the board is empty', () => {
   const spawned = [];
   const cell = {
     index: 0,
@@ -34,6 +34,9 @@ test('spawns again when the board has no visible riddles', () => {
   board.empty = [cell];
   cell.lastClearedAt = 750;
   spawner.update(800);
+  spawner.update(2500);
+  assert.equal(spawned.length, 1);
+  spawner.update(2750);
   assert.equal(spawned.length, 2);
 });
 
@@ -61,7 +64,7 @@ test('uses the configured correct ratio after incorrect riddles', () => {
   };
   const spawner = new SpawnController(board, settings, picker, () => 0);
   spawner.start(0);
-  spawner.update(0);
-  spawner.update(100);
+  spawner.update(500);
+  spawner.update(1500);
   assert.deepEqual(ratios, [0.6, 0.6]);
 });

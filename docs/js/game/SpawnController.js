@@ -12,15 +12,13 @@ export class SpawnController {
   }
   update(now) {
     const intervalMs = this.getIntervalMs(now - this.startTime);
+    if (now - this.lastSpawn < intervalMs) return;
     const active = this.board.active;
     if (active.length >= this.settings.maxActive) return;
-    if (active.length && now - this.lastSpawn < intervalMs) return;
     let empty = this.board.empty;
-    if (active.length) {
-      const available = empty.filter(cell => now - cell.lastClearedAt >= intervalMs);
-      if (available.length) empty = available;
-      else if (this.settings.maxActive !== 9 || empty.length !== 1 || active.length !== 8) return;
-    }
+    const available = empty.filter(cell => now - cell.lastClearedAt >= intervalMs);
+    if (available.length) empty = available;
+    else if (this.settings.maxActive !== 9 || empty.length !== 1 || active.length !== 8) return;
     if (empty.length > 1) empty = empty.filter(cell => cell.index !== this.lastCell);
     if (!empty.length) return;
     const cell = empty[Math.floor(this.random() * empty.length)];
