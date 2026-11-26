@@ -16,7 +16,7 @@ window.api = {
       group,
       (manifest[group] || []).map(name => ({
         id: `${group}/${name}`,
-        url: new URL(`./riddles/${group}/${encodeURIComponent(name)}`, document.baseURI).href
+        url: new URL(`./riddles/${group}/${encodeURIComponent(name.normalize('NFC'))}`, document.baseURI).href
       }))
     ]));
   },
