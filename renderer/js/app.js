@@ -1,12 +1,13 @@
 import { EventBus } from './core/EventBus.js';
 import { StateMachine } from './core/StateMachine.js';
+import { MODES } from './core/Modes.js';
 import { TitleScene } from './scenes/TitleScene.js';
 import { GameScene } from './scenes/GameScene.js';
 import { ResultScene } from './scenes/ResultScene.js';
 import { OptionsScene } from './scenes/OptionsScene.js';
 
 async function preloadImages(riddles) {
-  await Promise.all([...riddles.mole, ...riddles.other].map(item => new Promise(resolve => {
+  await Promise.all(Object.values(riddles).flat().map(item => new Promise(resolve => {
     const image = new Image();
     image.onload = resolve;
     image.onerror = resolve;
@@ -18,7 +19,7 @@ async function start() {
   if (!window.api) await import('./browserApi.js');
   const [riddles, settings] = await Promise.all([window.api.getRiddles(), window.api.getSettings()]);
   await preloadImages(riddles);
-  const context = { riddles, settings, bus: new EventBus(), machine: new StateMachine() };
+  const context = { riddles, settings, mode: MODES[0].group, bus: new EventBus(), machine: new StateMachine() };
   context.machine.register('TITLE', new TitleScene(context));
   context.machine.register('PLAYING', new GameScene(context));
   context.machine.register('RESULT', new ResultScene(context));

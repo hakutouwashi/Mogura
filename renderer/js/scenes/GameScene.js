@@ -25,7 +25,7 @@ export class GameScene {
     this.scoreDisplay.set(0);
     this.timer = new GameTimer(settings.gameDurationSec * 1000, bus);
     this.spawner = new SpawnController(this.board, settings,
-      new RiddlePicker(riddles, settings.moleRatioPercent));
+      new RiddlePicker(riddles, this.context.mode, settings.moleRatioPercent));
     const now = performance.now();
     this.timer.start(now);
     this.spawner.start(now);

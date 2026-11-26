@@ -1,8 +1,9 @@
 import { createHash } from 'node:crypto';
 import { copyFileSync, existsSync, mkdirSync, readFileSync, readdirSync, renameSync, rmSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
+import { RIDDLE_GROUPS } from '../renderer/js/core/Modes.js';
 
-const GROUPS = ['mole', 'other'];
+const GROUPS = RIDDLE_GROUPS;
 const IMAGE_NAME = /\.(png|jpe?g|webp)$/i;
 const MANIFEST_NAME = 'bundled-riddles.json';
 

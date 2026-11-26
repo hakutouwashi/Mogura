@@ -1,4 +1,5 @@
 import { normalizeSettings } from './core/DefaultSettings.js';
+import { RIDDLE_GROUPS } from './core/Modes.js';
 
 const settingsKey = 'mogura-settings';
 
@@ -11,7 +12,7 @@ async function loadJSON(path) {
 window.api = {
   async getRiddles() {
     const manifest = await loadJSON('./riddles.json');
-    return Object.fromEntries(['mole', 'other'].map(group => [
+    return Object.fromEntries(RIDDLE_GROUPS.map(group => [
       group,
       (manifest[group] || []).map(name => ({
         id: `${group}/${name}`,

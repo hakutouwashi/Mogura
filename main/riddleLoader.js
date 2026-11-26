@@ -1,9 +1,10 @@
 import { readdirSync } from 'node:fs';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
+import { RIDDLE_GROUPS } from '../renderer/js/core/Modes.js';
 
 export function loadRiddles(root) {
-  const result = { mole: [], other: [] };
+  const result = Object.fromEntries(RIDDLE_GROUPS.map(group => [group, []]));
   for (const group of Object.keys(result)) {
     try {
       result[group] = readdirSync(path.join(root, group), { withFileTypes: true })

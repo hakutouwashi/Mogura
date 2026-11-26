@@ -2,8 +2,8 @@ import { defaultSettings, normalizeSettings } from '../core/DefaultSettings.js';
 
 const fields = [
   ['gameDurationSec', '制限時間', '秒', 10, 600, 1],
-  ['scoreHitMole', 'モグラの加点', '点', 0, 10000, 1],
-  ['scoreHitOther', 'その他の減点', '点', 0, 10000, 1],
+  ['scoreHitMole', '正解の加点', '点', 0, 10000, 1],
+  ['scoreHitOther', '不正解の減点', '点', 0, 10000, 1],
   ['riddleLifetimeSec', '謎の表示時間', '秒', 0.5, 30, 0.1],
   ['maxActive', '同時表示数', '個', 1, 9, 1],
   ['spawnIntervalStartSec', '出現間隔・開始', '秒', 0.1, 10, 0.1],

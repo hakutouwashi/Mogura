@@ -14,6 +14,7 @@ export class Cell {
     this.riddle = null;
     this.effectUntil = 0;
     this.tapUntil = 0;
+    this.lastClearedAt = -Infinity;
     this.number = index + 1;
   }
   updateLabel() {
@@ -41,11 +42,11 @@ export class Cell {
     }
     if (this.state !== 'ACTIVE') return false;
     this.frame.stop();
-    this.state = this.riddle.isMole ? 'HIT' : 'MISS';
+    this.state = this.riddle.isCorrect ? 'HIT' : 'MISS';
     this.effectUntil = now + EFFECT_MS;
     this.element.dataset.state = this.state.toLowerCase();
     this.updateLabel();
-    this.bus.emit(this.riddle.isMole ? 'riddle:hit' : 'riddle:miss',
+    this.bus.emit(this.riddle.isCorrect ? 'riddle:hit' : 'riddle:miss',
       { index: this.index, riddle: this.riddle });
     return true;
   }
@@ -55,7 +56,7 @@ export class Cell {
       this.element.classList.remove('tapped');
     }
     if (this.state === 'ACTIVE') this.frame.update(now);
-    else if (this.state !== 'EMPTY' && now >= this.effectUntil) this.reset();
+    else if (this.state !== 'EMPTY' && now >= this.effectUntil) this.reset(now);
   }
   expire() {
     if (this.state !== 'ACTIVE') return;
@@ -72,8 +73,9 @@ export class Cell {
     this.element.append(popup);
     popup.addEventListener('animationend', () => popup.remove(), { once: true });
   }
-  reset() {
+  reset(now) {
     this.frame.stop();
+    this.lastClearedAt = now ?? -Infinity;
     this.state = 'EMPTY';
     this.riddle = null;
     this.effectUntil = 0;

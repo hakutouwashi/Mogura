@@ -5,13 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' file: data:; style-src 'self' 'unsafe-inline'; script-src 'self'">
   <title>もぐらたたき</title>
-  <link rel="stylesheet" href="./assets/20344e6c3170/css/style.css">
+  <link rel="stylesheet" href="./assets/95f324e1350d/css/style.css">
 </head>
 <body>
   <div id="fatal-error" hidden></div>
   <main id="title-scene" class="scene title-scene" hidden>
-    <h1>もぐらたたき</h1>
-    <button id="start-button" class="primary-button" type="button">Start</button>
+    <div class="game-layout title-game-layout">
+      <div class="stat time-stat title-spacer" aria-hidden="true"><span class="stat-label">のこり時間</span><strong>60<small>秒</small></strong></div>
+      <div class="board-shell title-board-shell">
+        <div id="title-board" class="board title-board" role="group" aria-label="スタート画面の9マス操作盤">
+          <button class="cell title-cell title-side" type="button" data-title-action="previous"></button>
+          <button class="cell title-cell title-top-cell" type="button" data-title-action="start"></button>
+          <button class="cell title-cell title-side" type="button" data-title-action="next"></button>
+          <button id="previous-target" class="cell title-cell title-side title-main-cell" type="button" data-title-action="previous"><span class="title-glyph" aria-hidden="true">←</span><span id="previous-target-name" class="title-neighbor-name"></span></button>
+          <button class="cell title-cell title-middle title-target-cell" type="button" data-title-action="start"><span class="title-target-caption">叩くもの</span><strong id="target-name" class="title-target-name" aria-live="polite">もぐら</strong></button>
+          <button id="next-target" class="cell title-cell title-side title-main-cell" type="button" data-title-action="next"><span class="title-glyph" aria-hidden="true">→</span><span id="next-target-name" class="title-neighbor-name"></span></button>
+          <button class="cell title-cell title-side" type="button" data-title-action="previous"></button>
+          <button id="start-button" class="cell title-cell title-middle title-start-cell" type="button" data-title-action="start"><span class="title-start-label">Start</span></button>
+          <button class="cell title-cell title-side" type="button" data-title-action="next"></button>
+        </div>
+        <header class="title-header"><h1>もぐらたたき</h1></header>
+      </div>
+      <div class="stat score-stat title-spacer" aria-hidden="true"><span class="stat-label">スコア</span><strong>0</strong></div>
+    </div>
     <p id="title-warning" class="notice" hidden></p>
   </main>
   <main id="game-scene" class="scene game-scene" hidden>
@@ -28,6 +44,6 @@
     <header class="options-header"><div><h2>ゲーム設定</h2><p>変更した設定は次のゲームから反映されます。</p></div><button id="cancel-button" class="text-button">設定を閉じる</button></header>
     <div class="options-panel"><form id="options-form"><div class="options-actions"><button id="reset-button" type="button" class="secondary-button">初期値に戻す</button><button type="submit" class="primary-button">保存して戻る</button></div></form><p id="options-message" role="alert"></p></div>
   </main>
-  <script type="module" src="./assets/20344e6c3170/js/app.js"></script>
+  <script type="module" src="./assets/95f324e1350d/js/app.js"></script>
 </body>
 </html>

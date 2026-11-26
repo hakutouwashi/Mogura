@@ -2,6 +2,7 @@ import { createHash } from 'node:crypto';
 import { cpSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { RIDDLE_GROUPS } from '../renderer/js/core/Modes.js';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const output = path.join(root, 'docs');
@@ -38,7 +39,7 @@ const index = readFileSync(path.join(output, 'index.html'), 'utf8')
 writeFileSync(path.join(output, 'index.html'), index);
 cpSync(path.join(root, 'riddles'), path.join(output, 'riddles'), { recursive: true, force: true });
 cpSync(path.join(root, 'settings.json'), path.join(output, 'settings.json'));
-for (const group of ['mole', 'other']) {
+for (const group of RIDDLE_GROUPS) {
   riddles[group] = readdirSync(path.join(root, 'riddles', group))
     .filter(name => /\.(png|jpe?g|webp)$/i.test(name))
     .sort();

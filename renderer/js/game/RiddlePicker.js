@@ -1,9 +1,14 @@
 export class RiddlePicker {
-  constructor(riddles, moleRatioPercent, random = Math.random) {
-    this.groups = riddles;
-    this.ratio = moleRatioPercent / 100;
+  constructor(riddles, targetGroup, correctRatioPercent, random = Math.random) {
+    this.groups = {
+      correct: riddles[targetGroup] || [],
+      incorrect: Object.entries(riddles)
+        .filter(([group]) => group !== targetGroup)
+        .flatMap(([, images]) => images)
+    };
+    this.ratio = correctRatioPercent / 100;
     this.random = random;
-    this.bags = { mole: [], other: [] };
+    this.bags = { correct: [], incorrect: [] };
     this.lastId = null;
   }
   refill(group) {
@@ -14,9 +19,9 @@ export class RiddlePicker {
     }
     this.bags[group] = bag;
   }
-  pick(activeIds = []) {
-    let group = this.random() < this.ratio ? 'mole' : 'other';
-    if (!this.groups[group].length) group = group === 'mole' ? 'other' : 'mole';
+  pick(activeIds = [], correctRatio = this.ratio) {
+    let group = this.random() < correctRatio ? 'correct' : 'incorrect';
+    if (!this.groups[group].length) group = group === 'correct' ? 'incorrect' : 'correct';
     if (!this.groups[group].length) return null;
     if (!this.bags[group].length) this.refill(group);
     let bag = this.bags[group];
@@ -25,6 +30,6 @@ export class RiddlePicker {
     if (index < 0) index = 0;
     const [item] = bag.splice(index, 1);
     this.lastId = item.id;
-    return { ...item, isMole: group === 'mole' };
+    return { ...item, isCorrect: group === 'correct' };
   }
 }
