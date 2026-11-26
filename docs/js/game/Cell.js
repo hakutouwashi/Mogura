@@ -16,20 +16,28 @@ export class Cell {
     this.tapUntil = 0;
     this.lastClearedAt = -Infinity;
     this.number = index + 1;
+    this.spawnToken = 0;
   }
   updateLabel() {
     this.element.setAttribute('aria-label', `${this.number}番のマス${this.state === 'ACTIVE' ? '、なぞが表示中' : ''}`);
   }
-  spawn(riddle, lifetimeMs, now) {
+  spawn(riddle, lifetimeMs) {
     if (this.state !== 'EMPTY') return false;
     this.element.classList.remove('tapped');
     this.riddle = riddle;
-    this.state = 'ACTIVE';
+    this.state = 'LOADING';
+    const token = ++this.spawnToken;
     this.image.src = riddle.url;
-    this.image.hidden = false;
-    this.element.dataset.state = 'active';
-    this.updateLabel();
-    this.frame.start(lifetimeMs, now);
+    this.image.decode().then(() => {
+      if (this.spawnToken !== token || this.state !== 'LOADING') return;
+      this.state = 'ACTIVE';
+      this.image.hidden = false;
+      this.frame.start(lifetimeMs, performance.now());
+      this.element.dataset.state = 'active';
+      this.updateLabel();
+    }).catch(() => {
+      if (this.spawnToken === token && this.state === 'LOADING') this.reset(performance.now());
+    });
     return true;
   }
   hit(now) {
@@ -56,6 +64,7 @@ export class Cell {
       this.element.classList.remove('tapped');
     }
     if (this.state === 'ACTIVE') this.frame.update(now);
+    else if (this.state === 'LOADING') return;
     else if (this.state !== 'EMPTY' && now >= this.effectUntil) this.reset(now);
   }
   expire() {
@@ -74,6 +83,7 @@ export class Cell {
     popup.addEventListener('animationend', () => popup.remove(), { once: true });
   }
   reset(now) {
+    this.spawnToken++;
     this.frame.stop();
     this.lastClearedAt = now ?? -Infinity;
     this.state = 'EMPTY';

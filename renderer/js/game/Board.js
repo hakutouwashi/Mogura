@@ -26,6 +26,6 @@ export class Board {
       cell.updateLabel();
     });
   }
-  get active() { return this.cells.filter(cell => cell.state === 'ACTIVE'); }
+  get active() { return this.cells.filter(cell => cell.state === 'ACTIVE' || cell.state === 'LOADING'); }
   get empty() { return this.cells.filter(cell => cell.state === 'EMPTY'); }
 }

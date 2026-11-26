@@ -27,7 +27,7 @@ export class SpawnController {
     const correctRatio = baseRatio + (1 - baseRatio) * progress;
     const riddle = this.picker.pick(this.board.active.map(item => item.riddle.id), correctRatio);
     if (!riddle) return;
-    cell.spawn(riddle, this.settings.riddleLifetimeSec * 1000, now);
+    cell.spawn(riddle, this.settings.riddleLifetimeSec * 1000);
     this.wrongStreak = riddle.isCorrect ? 0 : this.wrongStreak + 1;
     this.lastCell = cell.index;
     this.lastSpawn = now;
