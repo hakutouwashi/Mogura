@@ -49,3 +49,14 @@ test('decoding cannot reveal an image after the cell is reset', async () => {
   assert.equal(element.dataset.state, 'empty');
   assert.equal(cell.frame.running, false);
 });
+
+test('an already decoded image appears without another loading wait', () => {
+  const { cell, image, element } = createCell();
+  image.complete = true;
+  image.naturalWidth = 100;
+  cell.spawn({ url: 'riddle.webp', isCorrect: true }, 5000);
+  assert.equal(cell.state, 'ACTIVE');
+  assert.equal(image.hidden, false);
+  assert.equal(element.dataset.state, 'active');
+  assert.equal(cell.frame.running, true);
+});

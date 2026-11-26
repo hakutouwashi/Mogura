@@ -28,14 +28,19 @@ export class Cell {
     this.state = 'LOADING';
     const token = ++this.spawnToken;
     this.image.src = riddle.url;
-    this.image.decode().then(() => {
+    const showImage = () => {
       if (this.spawnToken !== token || this.state !== 'LOADING') return;
       this.state = 'ACTIVE';
       this.image.hidden = false;
       this.frame.start(lifetimeMs, performance.now());
       this.element.dataset.state = 'active';
       this.updateLabel();
-    }).catch(() => {
+    };
+    if (this.image.complete && this.image.naturalWidth > 0) {
+      showImage();
+      return true;
+    }
+    this.image.decode().then(showImage).catch(() => {
       if (this.spawnToken === token && this.state === 'LOADING') this.reset(performance.now());
     });
     return true;

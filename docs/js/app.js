@@ -5,21 +5,13 @@ import { TitleScene } from './scenes/TitleScene.js';
 import { GameScene } from './scenes/GameScene.js';
 import { ResultScene } from './scenes/ResultScene.js';
 import { OptionsScene } from './scenes/OptionsScene.js';
-
-async function preloadImages(riddles) {
-  await Promise.all(Object.values(riddles).flat().map(item => new Promise(resolve => {
-    const image = new Image();
-    image.onload = resolve;
-    image.onerror = resolve;
-    image.src = item.url;
-  })));
-}
+import { preloadImages } from './game/preloadImages.js';
 
 async function start() {
   if (!window.api) await import('./browserApi.js');
-  const [riddles, settings] = await Promise.all([window.api.getRiddles(), window.api.getSettings()]);
-  await preloadImages(riddles);
-  const context = { riddles, settings, mode: MODES[0].group, bus: new EventBus(), machine: new StateMachine() };
+  const [manifest, settings] = await Promise.all([window.api.getRiddles(), window.api.getSettings()]);
+  const { riddles, preloadedImages } = await preloadImages(manifest);
+  const context = { riddles, preloadedImages, settings, mode: MODES[0].group, bus: new EventBus(), machine: new StateMachine() };
   context.machine.register('TITLE', new TitleScene(context));
   context.machine.register('PLAYING', new GameScene(context));
   context.machine.register('RESULT', new ResultScene(context));
