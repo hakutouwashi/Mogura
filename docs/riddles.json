@@ -2,30 +2,53 @@
   "mole": [
     "mogura-1.webp",
     "mogura-2.webp",
-    "mogura-3.webp"
+    "mogura-3.webp",
+    "もぐら(50音)_本_v1.webp",
+    "もぐら(mg)_本_v1.webp",
+    "もぐら(あみだ)_本_v1.webp"
   ],
   "fish": [
     "ishidai-1.webp",
+    "あなご_本_v1.webp",
+    "いわし(じゃんけん)_本_v1.webp",
+    "いわし_本_v1.webp",
     "かつお_デバ用.webp",
+    "くえ_デバ用.webp",
+    "さかな_本_v1.webp",
+    "さんま_本_v1.webp",
+    "どじょう_本_v1.webp",
+    "はも_デバ用.webp",
+    "ふな_デバ用.webp",
     "ぶり_デバ用.webp",
-    "クエ_デバ用.webp"
+    "まぐろ(あみだ)_本_v1.webp",
+    "もぐら(7つ)_本_v1.webp",
+    "グッピー_本_v1.webp",
+    "クエ_デバ用.webp",
+    "ブルーベリー_デバ用.webp"
   ],
   "fruit": [
     "ichigo-1.webp",
     "ichijiku-1.webp",
     "mango-1.webp",
+    "いちご2_本_v1.webp",
+    "いちご_本_v1.webp",
     "きうい_デバ用.webp",
     "ぐれーぷ_デバ用.webp",
     "すいか2_デバ用.webp",
     "すいか_デバ用.webp",
+    "ばなな_デバ用.webp",
     "めろん_デバ用.webp",
     "らいち_デバ用.webp",
-    "れもん_デバ用.webp"
+    "りんご_本_v1.webp",
+    "れもん_デバ用.webp",
+    "ブルーベリー_デバ用.webp"
   ],
   "other": [
     "ishuu-1.webp",
     "くれーぷ_デバ用.webp",
+    "ごま_本_v1.webp",
     "そふぁ_デバ用.webp",
-    "はいふ_デバ用.webp"
+    "はいふ_デバ用.webp",
+    "グレー_本_v1.webp"
   ]
 }
