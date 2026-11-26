@@ -14,6 +14,7 @@ export class GameScene {
     this.element = document.getElementById('game-scene');
     this.board = new Board(document.getElementById('board'), context.bus);
     this.scoreDisplay = new ScoreDisplay(document.getElementById('score-value'));
+    this.pickers = new Map();
   }
   enter() {
     this.element.hidden = false;
@@ -24,8 +25,12 @@ export class GameScene {
     this.score = new ScoreManager(settings.allowNegativeScore);
     this.scoreDisplay.set(0);
     this.timer = new GameTimer(settings.gameDurationSec * 1000, bus);
-    this.spawner = new SpawnController(this.board, settings,
-      new RiddlePicker(riddles, this.context.mode, settings.moleRatioPercent));
+    let picker = this.pickers.get(this.context.mode);
+    if (!picker) {
+      picker = new RiddlePicker(riddles, this.context.mode, settings.moleRatioPercent);
+      this.pickers.set(this.context.mode, picker);
+    }
+    this.spawner = new SpawnController(this.board, settings, picker);
     const now = performance.now();
     this.timer.start(now);
     this.spawner.start(now);

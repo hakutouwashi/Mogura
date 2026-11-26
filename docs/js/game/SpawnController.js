@@ -3,9 +3,8 @@ export class SpawnController {
     Object.assign(this, { board, settings, picker, random, easing });
     this.durationMs = settings.gameDurationSec * 1000;
     this.lastCell = -1;
-    this.wrongStreak = 0;
   }
-  start(now) { this.startTime = now; this.lastSpawn = now - this.settings.spawnIntervalStartSec * 1000 + 500; this.lastCell = -1; this.wrongStreak = 0; }
+  start(now) { this.startTime = now; this.lastSpawn = now - this.settings.spawnIntervalStartSec * 1000 + 500; this.lastCell = -1; }
   getIntervalMs(elapsedMs) {
     const t = Math.max(0, Math.min(1, elapsedMs / this.durationMs));
     return (this.settings.spawnIntervalStartSec +
@@ -25,13 +24,9 @@ export class SpawnController {
     if (empty.length > 1) empty = empty.filter(cell => cell.index !== this.lastCell);
     if (!empty.length) return;
     const cell = empty[Math.floor(this.random() * empty.length)];
-    const baseRatio = this.settings.moleRatioPercent / 100;
-    const progress = Math.min(1, this.wrongStreak / Math.max(1, this.settings.maxActive - 1));
-    const correctRatio = baseRatio + (1 - baseRatio) * progress;
-    const riddle = this.picker.pick(active.map(item => item.riddle.id), correctRatio);
+    const riddle = this.picker.pick(active.map(item => item.riddle.id), this.settings.moleRatioPercent / 100);
     if (!riddle) return;
     cell.spawn(riddle, this.settings.riddleLifetimeSec * 1000);
-    this.wrongStreak = riddle.isCorrect ? 0 : this.wrongStreak + 1;
     this.lastCell = cell.index;
     this.lastSpawn = now;
   }

@@ -21,6 +21,15 @@ test('each mode marks only its own images as correct', () => {
   }
 });
 
+test('each image in a group is chosen once before that group repeats', () => {
+  const items = Array.from({ length: 6 }, (_, index) => ({ id: `mole/${index}.webp` }));
+  const picker = new RiddlePicker({ mole: items, other: [] }, 'mole', 100, () => 0.5);
+  for (let round = 0; round < 2; round++) {
+    const chosen = Array.from({ length: items.length }, () => picker.pick().id);
+    assert.deepEqual(chosen.sort(), items.map(item => item.id).sort());
+  }
+});
+
 test('title keys switch modes and block starting without selected images', () => {
   const elements = Object.fromEntries(
     ['title-scene', 'title-warning', 'target-name', 'previous-target-name', 'next-target-name',
