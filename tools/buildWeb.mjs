@@ -18,7 +18,11 @@ function filesIn(directory) {
 }
 
 const hash = createHash('sha256');
-for (const file of [...filesIn(path.join(root, 'renderer')), ...filesIn(path.join(root, 'riddles')), path.join(root, 'settings.json')]) {
+for (const file of [
+  ...filesIn(path.join(root, 'renderer')),
+  ...RIDDLE_GROUPS.flatMap(group => filesIn(path.join(root, 'riddles', group))),
+  path.join(root, 'settings.json')
+]) {
   hash.update(path.relative(root, file));
   hash.update(readFileSync(file));
 }
@@ -37,7 +41,10 @@ const index = readFileSync(path.join(output, 'index.html'), 'utf8')
   .replace('./css/style.css', `./assets/${version}/css/style.css`)
   .replace('./js/app.js', `./assets/${version}/js/app.js`);
 writeFileSync(path.join(output, 'index.html'), index);
-cpSync(path.join(root, 'riddles'), path.join(output, 'riddles'), { recursive: true, force: true });
+mkdirSync(path.join(output, 'riddles'), { recursive: true });
+for (const group of RIDDLE_GROUPS) {
+  cpSync(path.join(root, 'riddles', group), path.join(output, 'riddles', group), { recursive: true });
+}
 cpSync(path.join(root, 'settings.json'), path.join(output, 'settings.json'));
 for (const group of RIDDLE_GROUPS) {
   riddles[group] = readdirSync(path.join(root, 'riddles', group))

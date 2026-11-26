@@ -1,20 +1,31 @@
 {
   "mole": [
-    "01.webp",
-    "02.webp",
-    "03.webp",
-    "04.webp",
-    "05.webp",
-    "06.webp"
+    "mogura-1.webp",
+    "mogura-2.webp",
+    "mogura-3.webp"
   ],
-  "fish": [],
-  "fruit": [],
+  "fish": [
+    "ishidai-1.webp",
+    "かつお_デバ用.webp",
+    "ぶり_デバ用.webp",
+    "クエ_デバ用.webp"
+  ],
+  "fruit": [
+    "ichigo-1.webp",
+    "ichijiku-1.webp",
+    "mango-1.webp",
+    "きうい_デバ用.webp",
+    "ぐれーぷ_デバ用.webp",
+    "すいか2_デバ用.webp",
+    "すいか_デバ用.webp",
+    "めろん_デバ用.webp",
+    "らいち_デバ用.webp",
+    "れもん_デバ用.webp"
+  ],
   "other": [
-    "01.webp",
-    "02.webp",
-    "03.webp",
-    "04.webp",
-    "05.webp",
-    "06.webp"
+    "ishuu-1.webp",
+    "くれーぷ_デバ用.webp",
+    "そふぁ_デバ用.webp",
+    "はいふ_デバ用.webp"
   ]
 }
