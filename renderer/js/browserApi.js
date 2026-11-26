@@ -4,7 +4,7 @@ import { RIDDLE_GROUPS } from './core/Modes.js';
 const settingsKey = 'mogura-settings';
 
 async function loadJSON(path) {
-  const response = await fetch(new URL(path, document.baseURI));
+  const response = await fetch(new URL(path, document.baseURI), { cache: 'no-store' });
   if (!response.ok) throw new Error(`${path} を読み込めませんでした (${response.status})`);
   return response.json();
 }
